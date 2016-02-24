@@ -23,7 +23,7 @@ if ( have_posts() ) {
 			'id'        => $id ,
 			'title'     => get_the_title() ,
             'permalink' => get_permalink(),
-            'content'   => get_the_content(),
+            'content'   => apply_filters ( 'the_content', get_the_content()),
             'excerpt'   => get_the_excerpt(),
 			'date'      => get_the_date('Y-m-d H:i:s','','',false) ,
 			'author'    => get_the_author() ,
@@ -48,6 +48,19 @@ if ( have_posts() ) {
 			$single["tags"] = wp_list_pluck( $tags, 'name' );
 		}
 
+    // event_id
+    $single["eventids"] = array();
+    $tags = get_the_terms($id, 'eventids');
+    if ( ! empty( $tags) ) {
+      $single["eventids"] = wp_list_pluck( $tags, 'name' );
+    }
+
+
+    $single["geographies"] = array();
+    $tags = get_the_terms($id, 'geographies');
+    if ( ! empty( $tags) ) {
+      $single["geographies"] = wp_list_pluck( $tags, 'name' );
+    }
 		$json[] = $single;
 	}
 
