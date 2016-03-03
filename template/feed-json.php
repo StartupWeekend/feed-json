@@ -31,7 +31,7 @@ if ( have_posts() ) {
 
 		// thumbnail
 		if (function_exists('has_post_thumbnail') && has_post_thumbnail($id)) {
-			$single["thumbnail"] = preg_replace("/^.*['\"](https?:\/\/[^'\"]*)['\"].*/i","$1",get_the_post_thumbnail($id));
+			$single["thumbnail"] = get_the_post_thumbnail_url($id);
 		}
 
 		// category
